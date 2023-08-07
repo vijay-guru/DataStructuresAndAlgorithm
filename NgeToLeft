@@ -1,0 +1,18 @@
+public static long[] nextLargerElement(long[] arr, int n)
+    {
+       long brr[]=new long[n];
+       Stack<Long>stack=new Stack<>();
+       for(int i=n-1;i>=0;i--){
+           while(!stack.isEmpty() && stack.peek()<=arr[i]){
+               stack.pop();
+           }
+           if(stack.isEmpty()){
+               brr[i]=-1;
+           }
+           else{
+               brr[i]=stack.peek();
+           }
+           stack.push(arr[i]);
+       }
+       return brr;
+    } 

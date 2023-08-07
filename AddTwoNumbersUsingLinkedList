@@ -1,0 +1,46 @@
+void addTwoLists(Node head1 , Node head2){
+	    head1 = Node.reverse(head1);
+	    head2 = Node.reverse(head2);
+	    
+	    int carry = 0;
+	    Node result = null, resultNext = null;
+	    while(head1 !=null || head2 != null || carry ==1 ){
+	        int sum = 0;
+	        if(head1 != null && head2 != null){
+	            sum += (head1.data + head2.data + carry);
+	        }
+	        else{
+	            if(head1 !=null){
+	                sum += (head1.data + carry);
+	            }
+	            else if(head2 != null){
+	                sum += (head2.data + carry);
+	            }
+	            else{
+	                sum += carry;
+	            }
+	        }
+	        carry = 0;
+	        if(sum > 9){
+	            sum = sum % 10;
+	            carry = 1;
+	        }
+	        Node newNode = new Node(sum);
+	        if(result == null){
+	            result = newNode;
+	            resultNext = result;
+	        }
+	        else{
+	            resultNext.next = newNode;
+	            resultNext = resultNext.next;
+	        }
+	        if(head1 != null){
+	            head1 = head1.next;
+	        }
+	        if(head2 != null){
+	            head2 = head2.next;
+	        }
+	    }
+	    result = Node.reverse(result);
+	    printList(result);
+	}
