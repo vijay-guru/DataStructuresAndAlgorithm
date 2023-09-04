@@ -1,0 +1,81 @@
+public class SudokuValidator {
+    public static boolean isValidSudoku(char[][] board) {
+        for (int i = 0; i < 9; i++) {
+            if (!isValidRow(board, i) || !isValidColumn(board, i) || !isValidSubmatrix(board, i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isValidRow(char[][] board, int row) {
+        boolean[] used = new boolean[9];
+        for (int i = 0; i < 9; i++) {
+            char currentVal = board[row][i];
+            if (currentVal != '.') {
+                int num = currentVal - '1';
+                if (used[num]) {
+                    return false;
+                }
+                used[num] = true;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isValidColumn(char[][] board, int col) {
+        boolean[] used = new boolean[9];
+        for (int i = 0; i < 9; i++) {
+            char currentVal = board[i][col];
+            if (currentVal != '.') {
+                int num = currentVal - '1';
+                if (used[num]) {
+                    return false;
+                }
+                used[num] = true;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isValidSubmatrix(char[][] board, int submatrix) {
+        boolean[] used = new boolean[9];
+        int rowStart = (submatrix / 3) * 3;
+        int colStart = (submatrix % 3) * 3;
+        
+        for (int i = rowStart; i < rowStart + 3; i++) {
+            for (int j = colStart; j < colStart + 3; j++) {
+                char currentVal = board[i][j];
+                if (currentVal != '.') {
+                    int num = currentVal - '1';
+                    if (used[num]) {
+                        return false;
+                    }
+                    used[num] = true;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        char[][] sudoku = {
+            {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
+            {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
+            {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+            {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+            {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+            {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+            {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+            {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
+            {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
+        };
+
+        boolean isValid = isValidSudoku(sudoku);
+        if (isValid) {
+            System.out.println("The Sudoku is valid.");
+        } else {
+            System.out.println("The Sudoku is not valid.");
+        }
+    }
+}

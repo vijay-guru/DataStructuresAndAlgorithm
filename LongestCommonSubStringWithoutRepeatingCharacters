@@ -19,3 +19,4 @@ public int lengthOfLongestSubstring(String s) {
             
         }
         return maxLength;
+    }
